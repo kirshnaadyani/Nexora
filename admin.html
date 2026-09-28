@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXORA | Atelier Admin Suite</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23D4AF37'>✦</text></svg>">
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Luxury Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .admin-standalone-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      flex: 1;
+    }
+    .auth-overlay-screen {
+      position: fixed;
+      inset: 0;
+      background: #0a0a0a;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Password Security Screen -->
+  <div id="standaloneAuthScreen" class="auth-overlay-screen">
+    <div class="admin-auth-window" style="background: #141414; border: 1px solid var(--border-gold); box-shadow: 0 0 50px rgba(212,175,55,0.2);">
+      <div class="admin-lock-icon">
+        <i class="fas fa-fingerprint" style="color: var(--accent-gold); font-size: 3rem;"></i>
+      </div>
+      <h2 class="admin-auth-title" style="letter-spacing: 0.25em;">NEXORA ATELIER</h2>
+      <p class="admin-auth-subtitle">Confidential Administration Suite</p>
+
+      <form id="standaloneAuthForm">
+        <input type="password" id="standalonePassInput" class="admin-password-input" placeholder="Enter Passcode" required autofocus autocomplete="off">
+        <div id="standaloneAuthError" style="display:none; color: var(--danger); font-size: 0.78rem; margin-bottom: 1.2rem;"></div>
+        
+        <button type="submit" class="btn-luxury-primary" style="width: 100%; justify-content: center;">
+          <i class="fas fa-key"></i> Authenticate Atelier
+        </button>
+      </form>
+      
+      <div style="margin-top: 2rem; border-top: 1px solid var(--border-light); padding-top: 1rem; display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted);">
+        <a href="index.html" style="color: var(--accent-gold);"><i class="fas fa-arrow-left"></i> Return to Storefront</a>
+        <span>Passcode: <code style="color: var(--accent-gold-light);">nexora2026</code></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Main Header -->
+  <header class="navbar" style="border-bottom: 1px solid var(--border-gold);">
+    <div class="container nav-container">
+      <div class="brand-logo-wrap">
+        <a href="index.html" class="brand-logo" style="font-size: 1.6rem;">
+          NEXORA<span class="gold-dot">✦</span>
+        </a>
+        <span class="brand-tagline">Atelier Admin Portal</span>
+      </div>
+
+      <div class="nav-right" style="gap: 1rem;">
+        <span class="admin-status-indicator"><i class="fas fa-satellite-dish"></i> Connected to Supabase</span>
+        <button id="btnSyncSupabasePage" class="admin-tab-btn" style="background: rgba(212,175,55,0.15); border-color: var(--accent-gold); color: var(--accent-gold-light);">
+          <i class="fas fa-cloud-upload-alt"></i> Sync to Cloud
+        </button>
+        <a href="index.html" class="btn-luxury-outline" style="padding: 0.5rem 1.2rem; font-size: 0.72rem;">
+          <i class="fas fa-external-link-alt"></i> View Storefront
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Body Content -->
+  <main class="admin-standalone-container">
+    
+    <!-- Admin Tabs -->
+    <div class="admin-tabs" style="margin-top: 1.5rem;">
+      <button class="admin-tab-btn active" data-tab="products"><i class="fas fa-tshirt"></i> Garment Inventory</button>
+      <button class="admin-tab-btn" data-tab="add-product"><i class="fas fa-plus-circle"></i> Add New Garment</button>
+      <button class="admin-tab-btn" data-tab="database"><i class="fas fa-database"></i> Supabase Status & Fix</button>
+      <button class="admin-tab-btn" data-tab="orders"><i class="fas fa-receipt"></i> Customer Orders</button>
+    </div>
+
+    <!-- Metrics Summary -->
+    <div class="admin-metrics-grid">
+      <div class="metric-card">
+        <span class="metric-title">Published Garments</span>
+        <div id="metricTotalProducts" class="metric-value">0</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-title">Total Stock Units</span>
+        <div id="metricTotalStock" class="metric-value">0</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-title">Total Inventory Valuation</span>
+        <div id="metricInventoryValue" class="metric-value">$0</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-title">Client Orders Logged</span>
+        <div id="metricTotalOrders" class="metric-value">0</div>
+      </div>
+    </div>
+
+    <!-- Tab 1: Products Inventory -->
+    <div id="admin-tab-products" class="admin-tab-pane">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+        <h3 style="font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.1em;">Live Garment Inventory</h3>
+        <div style="display: flex; gap: 0.8rem;">
+          <button class="btn-luxury-outline" onclick="clearAllProductsInAdmin()" style="padding: 0.6rem 1rem; font-size: 0.72rem; border-color: rgba(224,82,82,0.4); color: var(--danger);">
+            <i class="fas fa-trash"></i> Clear All Products
+          </button>
+          <button class="btn-luxury-primary" onclick="document.querySelector('[data-tab=\'add-product\']').click()" style="padding: 0.6rem 1.2rem; font-size: 0.75rem;">
+            <i class="fas fa-plus"></i> Add Garment
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Garment</th>
+              <th>Silhouette & SKU</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminProductsTableBody">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 2: Add / Edit Product Form -->
+    <div id="admin-tab-add-product" class="admin-tab-pane" style="display: none;">
+      <h3 id="adminFormTitle" style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--accent-gold-light);">
+        Add New Real Luxury Garment
+      </h3>
+
+      <form id="adminProductForm" class="admin-form-grid">
+        <input type="hidden" id="prodId">
+
+        <div class="form-group">
+          <label class="form-label">Garment Name</label>
+          <input type="text" id="prodName" class="form-input" placeholder="e.g. Aurelia Draped Silk Gown" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select id="prodCategory" class="form-input" style="background:#161616;">
+            <option value="Silk & Eveningwear">Silk & Eveningwear</option>
+            <option value="Outerwear">Outerwear</option>
+            <option value="Bespoke Tailoring">Bespoke Tailoring</option>
+            <option value="Haute Couture">Haute Couture</option>
+            <option value="Ready-to-Wear">Ready-to-Wear</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Price ($ USD)</label>
+          <input type="number" id="prodPrice" class="form-input" placeholder="1850" required min="1">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Original / Retail Price ($ USD - Optional)</label>
+          <input type="number" id="prodOrigPrice" class="form-input" placeholder="2200">
+        </div>
+
+        <div class="form-group form-full-width">
+          <label class="form-label">High-Resolution Image URL</label>
+          <input type="url" id="prodImage" class="form-input" placeholder="https://images.unsplash.com/photo-..." required>
+        </div>
+
+        <div class="form-group form-full-width">
+          <label class="form-label">Fabric Composition & Savoir-Faire</label>
+          <input type="text" id="prodMaterial" class="form-input" placeholder="e.g. 100% Organic Mulberry Silk Charmeuse, 24K Gold-dipped hardware" required>
+        </div>
+
+        <div class="form-group form-full-width">
+          <label class="form-label">Atelier Editorial Description</label>
+          <textarea id="prodDescription" class="form-input" rows="3" placeholder="Describe the tailoring, drape, and silhouette..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Available Sizes (Comma separated)</label>
+          <input type="text" id="prodSizes" class="form-input" value="XS, S, M, L, XL">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Available Colors (Comma separated)</label>
+          <input type="text" id="prodColors" class="form-input" value="Obsidian Black, Champagne Gold, Ivory">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Stock Quantity</label>
+          <input type="number" id="prodStock" class="form-input" value="10" min="0">
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 0.6rem; padding-top: 1.5rem;">
+          <input type="checkbox" id="prodFeatured" checked style="width: 18px; height: 18px; accent-color: var(--accent-gold);">
+          <label for="prodFeatured" class="form-label" style="margin: 0; cursor: pointer;">Feature in Atelier Highlight Capsule</label>
+        </div>
+
+        <div class="form-full-width" style="display: flex; gap: 1rem; margin-top: 1rem;">
+          <button type="submit" id="btnSaveProduct" class="btn-luxury-primary">Publish to Storefront</button>
+          <button type="button" id="btnResetProductForm" class="btn-luxury-outline">Clear Form</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tab: Database & Supabase Diagnostics -->
+    <div id="admin-tab-database" class="admin-tab-pane" style="display: none;">
+      <div style="background: #141414; border: 1px solid var(--border-gold); padding: 2rem; border-radius: var(--radius-md); margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.3rem; color: var(--accent-gold-light); margin-bottom: 0.3rem;">
+              <i class="fas fa-database"></i> Supabase Live Diagnostic
+            </h3>
+            <p style="font-size: 0.8rem; color: var(--text-secondary);">
+              Inspect live connection to your Supabase project (<code>https://orsoeipfqoaohghegvf.supabase.co</code>).
+            </p>
+          </div>
+          <button id="btnRunSupabaseDiag" class="btn-luxury-primary" onclick="runSupabaseDiagnostic()">
+            <i class="fas fa-vial"></i> Test & Refresh Supabase
+          </button>
+        </div>
+
+        <div id="supabaseDiagOutput" style="margin-top: 1rem;"></div>
+
+        <div style="margin-top: 2rem; border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
+          <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--text-primary); margin-bottom: 0.6rem;">
+            <i class="fas fa-key" style="color: var(--accent-gold);"></i> 1-Click Fix for Supabase Row Level Security (RLS)
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+            If you added products in your Supabase table but they don't show up, Supabase's Row Level Security is blocking anonymous read requests. Copy the SQL script below and run it in your <strong>Supabase Dashboard &gt; SQL Editor</strong>:
+          </p>
+          <pre style="background: #0a0a0a; border: 1px solid var(--border-gold); padding: 1.2rem; border-radius: var(--radius-sm); color: var(--accent-gold-light); font-size: 0.8rem; overflow-x: auto; line-height: 1.6; user-select: all;">-- Step 1: Ensure products table exists
+CREATE TABLE IF NOT EXISTS products (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    category TEXT DEFAULT 'Ready-to-Wear',
+    price NUMERIC DEFAULT 0,
+    original_price NUMERIC,
+    image TEXT,
+    description TEXT,
+    material TEXT,
+    stock_quantity INT DEFAULT 10,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+-- Step 2: Grant public read/write access (Solves missing items issue immediately)
+ALTER TABLE products DISABLE ROW LEVEL SECURITY;
+</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Customer Orders -->
+    <div id="admin-tab-orders" class="admin-tab-pane" style="display: none;">
+      <h3 style="font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.1em; margin-bottom: 1rem;">Customer Concierge Orders</h3>
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Client</th>
+              <th>Garments Ordered</th>
+              <th>Total Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="adminOrdersTableBody">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/products-data.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/admin.js"></script>
+
+  <script>
+    // Standalone Authentication Screen logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const authScreen = document.getElementById('standaloneAuthScreen');
+      const authForm = document.getElementById('standaloneAuthForm');
+      const passInput = document.getElementById('standalonePassInput');
+      const errorMsg = document.getElementById('standaloneAuthError');
+      const syncBtn = document.getElementById('btnSyncSupabasePage');
+
+      // Check session
+      if (sessionStorage.getItem('nexora_admin_authed') === 'true') {
+        authScreen.style.display = 'none';
+        isAdminAuthenticated = true;
+        loadAdminDashboardData();
+      }
+
+      authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (passInput.value === ADMIN_SECRET_PASS) {
+          sessionStorage.setItem('nexora_admin_authed', 'true');
+          isAdminAuthenticated = true;
+          authScreen.style.display = 'none';
+          showToast('Welcome to Nexora Atelier Admin', 'fa-key');
+          loadAdminDashboardData();
+        } else {
+          errorMsg.style.display = 'block';
+          errorMsg.textContent = 'Incorrect passcode. Access denied.';
+          passInput.value = '';
+        }
+      });
+
+      if (syncBtn) {
+        syncBtn.addEventListener('click', handleSyncToSupabase);
+      }
+    });
+  </script>
+</body>
+</html>

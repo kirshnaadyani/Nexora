@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXORA | Haute Couture & Luxury Prêt-à-Porter</title>
+  <meta name="description" content="Nexora represents the pinnacle of modern luxury tailoring, silk eveningwear, and bespoke haute couture garments handcrafted with uncompromising savoir-faire.">
+
+  <!-- Favicon / Brand Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23D4AF37'>✦</text></svg>">
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Luxury Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="top-bar">
+    <div class="top-bar-marquee">
+      <span>✦ COMPLIMENTARY WORLDWIDE WHITE-GLOVE DELIVERY ON ORDERS OVER $1,500 · PRIVATE ATELIER FITTINGS BY APPOINTMENT ✦</span>
+    </div>
+    <div class="top-bar-contact">
+      <span><i class="fas fa-gem" style="color: var(--accent-gold); margin-right: 4px;"></i> PARIS · MILAN · NEW YORK</span>
+      <span>CONCIERGE@NEXORA.COM</span>
+    </div>
+  </div>
+
+  <!-- Main Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      
+      <!-- Nav Left Links -->
+      <nav class="nav-left">
+        <ul class="nav-links">
+          <li><a href="#collection" class="nav-link">Collection</a></li>
+          <li><a href="#capsule" class="nav-link">Capsule</a></li>
+          <li><a href="#heritage" class="nav-link">Savoir-Faire</a></li>
+          <li><a href="#atelier" class="nav-link">Atelier</a></li>
+        </ul>
+      </nav>
+
+      <!-- Brand Identity (Home Line) with Fingerprint Admin Trigger -->
+      <div class="brand-logo-wrap" title="Nexora Haute Couture">
+        <a href="index.html" class="brand-logo">
+          NEXORA<span class="gold-dot">✦</span>
+        </a>
+        <span class="brand-tagline">Maison de Couture</span>
+      </div>
+
+      <!-- Nav Right Actions -->
+      <div class="nav-right">
+        <!-- Admin Fingerprint Icon (Small & Visible) -->
+        <button id="secretFingerprintBtn" class="admin-fingerprint-btn" title="Atelier Admin Portal">
+          <i class="fas fa-fingerprint"></i>
+        </button>
+
+        <!-- Wishlist Trigger -->
+        <button id="openWishlistBtn" class="nav-action-btn" title="Private Wishlist">
+          <i class="far fa-heart"></i>
+          <span class="badge-count wishlist-count-badge">0</span>
+        </button>
+
+        <!-- Cart Trigger -->
+        <button id="openCartBtn" class="nav-action-btn" title="Atelier Bag">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge-count cart-count-badge">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Editorial Section -->
+  <section class="hero-section">
+    <div class="hero-bg-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-label">Autumn / Winter Couture Collection</span>
+        <h1 class="hero-title">Poetry in <em>Silk</em> & Architecture in <em>Wool</em>.</h1>
+        <p class="hero-desc">
+          Crafted in limited atelier editions. Experience meticulously draped Mulberry silks, double-faced cashmere outerwear, and precision bespoke tailoring.
+        </p>
+        <div class="hero-actions">
+          <a href="#collection" class="btn-luxury-primary">
+            Explore Collection <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#capsule" class="btn-luxury-outline">
+            Discover Savoir-Faire
+          </a>
+        </div>
+
+        <div class="hero-highlights">
+          <div class="highlight-item">
+            <h4>100%</h4>
+            <p>Certified Organic Silk & Cashmere</p>
+          </div>
+          <div class="highlight-item">
+            <h4>Handcrafted</h4>
+            <p>Italian & Parisian Master Ateliers</p>
+          </div>
+          <div class="highlight-item">
+            <h4>Numbered</h4>
+            <p>Limited Production Runs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Spotlight / Capsule Story -->
+  <section id="capsule" class="editorial-capsule">
+    <div class="container">
+      <div class="capsule-grid">
+        <div class="capsule-imagery">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85" class="capsule-img-main" alt="Nexora Atelier Savoir-Faire">
+          <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=85" class="capsule-img-float" alt="Nexora Couture Detail">
+        </div>
+        <div class="capsule-text">
+          <span class="section-subtitle">The Atelier Manifesto</span>
+          <h2 class="section-title">Sculpting Modern Grandeur</h2>
+          <p class="section-desc" style="margin-top: 1rem; line-height: 1.8;">
+            Every silhouette produced under the house of Nexora is an exploration of fluidity and structure. We eliminate compromise, selecting raw natural fibers from historical European mills and allowing each piece to drape with effortless distinction.
+          </p>
+
+          <div class="capsule-features">
+            <div class="feature-box">
+              <h5>Pure Silk Charmeuse</h5>
+              <p>Heavyweight 22-momme grade with luminous light-reflecting drape.</p>
+            </div>
+            <div class="feature-box">
+              <h5>Bespoke Canvassing</h5>
+              <p>Natural horsehair chest canvas that gently conforms to your posture.</p>
+            </div>
+          </div>
+
+          <a href="#collection" class="btn-luxury-outline" style="margin-top: 1rem; display: inline-block;">
+            View Capsule Releases
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated Collection Storefront Catalog -->
+  <section id="collection" class="section-editorial">
+    <div class="container">
+      
+      <!-- Section Title & Subtitle -->
+      <div class="section-header">
+        <span class="section-subtitle">Curated Catalog</span>
+        <h2 class="section-title">The Current Collection</h2>
+        <p class="section-desc">Hand-finished garments designed for timeless elegance and effortless presence.</p>
+      </div>
+
+      <!-- Controls: Category Pills, Search & Sort -->
+      <div class="catalog-controls">
+        <div class="category-tabs">
+          <button class="category-pill active" data-category="all">All Creations</button>
+          <button class="category-pill" data-category="Silk & Eveningwear">Silk & Gowns</button>
+          <button class="category-pill" data-category="Outerwear">Outerwear</button>
+          <button class="category-pill" data-category="Bespoke Tailoring">Tailoring</button>
+          <button class="category-pill" data-category="Haute Couture">Haute Couture</button>
+          <button class="category-pill" data-category="Ready-to-Wear">Ready-to-Wear</button>
+          <button class="category-pill" data-category="Accessories">Accessories</button>
+        </div>
+
+        <div class="search-and-sort">
+          <div class="search-input-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="catalogSearchInput" class="search-input" placeholder="Search silhouettes, fabrics...">
+          </div>
+          <select id="catalogSortSelect" class="sort-select">
+            <option value="featured">Featured Atelier</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Acclaim</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Product Cards Grid -->
+      <div id="productsGrid" class="products-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Luxury Brand Heritage & Atelier Pillars -->
+  <section id="heritage" class="heritage-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">House Standards</span>
+        <h2 class="section-title">The Nexora Standard</h2>
+      </div>
+
+      <div class="heritage-grid">
+        <div class="heritage-card">
+          <div class="heritage-icon"><i class="fas fa-feather-pointed"></i></div>
+          <h4>Ethical Natural Fibers</h4>
+          <p>We source exclusively cruelty-free mulberry silk, traceable inner Mongolian cashmere, and organic Normandy flax linen.</p>
+        </div>
+
+        <div class="heritage-card">
+          <div class="heritage-icon"><i class="fas fa-compass-drafting"></i></div>
+          <h4>Architectural Precision</h4>
+          <p>Over 80 hours of hand-patterning and bespoke draping go into the development of every couture pattern in our atelier.</p>
+        </div>
+
+        <div class="heritage-card">
+          <div class="heritage-icon"><i class="fas fa-shield-halved"></i></div>
+          <h4>Lifetime Savoir-Faire Guarantee</h4>
+          <p>Complimentary annual garment rejuvenation, seam inspection, and silk re-conditioning for all registered clients.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIP Concierge & Newsletter -->
+  <section id="atelier" class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-box">
+        <span class="section-subtitle">Private Client Circle</span>
+        <h2 class="section-title" style="font-size: 2.5rem; margin-top: 0.5rem;">Join the Nexora Privé</h2>
+        <p class="section-desc">Receive confidential invitations to private runway previews, salon trunk shows, and bespoke tailoring appointments.</p>
+        
+        <form id="newsletterForm" class="newsletter-form">
+          <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="Enter your private email..." required>
+          <button type="submit" class="btn-luxury-primary">Request Access</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Luxury Footer with Hidden Admin Trigger -->
+  <footer class="luxury-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>NEXORA</h3>
+          <p>An international haute couture house celebrating the poetry of fine textile craftsmanship, modern silhouettes, and quiet luxury.</p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Collections</h5>
+          <ul>
+            <li><a href="#collection">Evening Charmeuse</a></li>
+            <li><a href="#collection">Cashmere Outerwear</a></li>
+            <li><a href="#collection">Bespoke Suiting</a></li>
+            <li><a href="#collection">Bridal & Gala</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Maison</h5>
+          <ul>
+            <li><a href="#heritage">Brand Heritage</a></li>
+            <li><a href="#capsule">Savoir-Faire</a></li>
+            <li><a href="#atelier">Private Salons</a></li>
+            <li><a href="#atelier">Sustainability</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Concierge</h5>
+          <ul>
+            <li><a href="mailto:concierge@nexora.com">concierge@nexora.com</a></li>
+            <li><a href="#">+1 (800) 920-NEXORA</a></li>
+            <li><a href="#">740 Madison Avenue, New York</a></li>
+            <li><a href="#">12 Place Vendôme, Paris</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 NEXORA MAISON DE COUTURE. ALL RIGHTS RESERVED.</p>
+        <p>
+          TERMS OF LUXURY PRIVILEGE · PRIVACY CHARTER
+          <!-- Secret Admin Link dot in Footer -->
+          <span id="secretFooterDot" class="footer-secret-dot" title="·">.</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODALS & DRAWERS
+       ========================================================================== -->
+
+  <!-- Slide-over Drawer Overlay -->
+  <div id="drawerOverlay" class="drawer-overlay"></div>
+
+  <!-- Shopping Cart Slide-over Drawer -->
+  <aside id="cartDrawer" class="drawer-panel">
+    <div class="drawer-header">
+      <h3 class="drawer-title"><i class="fas fa-shopping-bag" style="color: var(--accent-gold); margin-right: 8px;"></i> Atelier Bag</h3>
+      <button id="closeCartBtn" class="drawer-close-btn"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div id="cartDrawerItems" class="drawer-body">
+      <!-- Rendered dynamically -->
+    </div>
+
+    <div id="cartDrawerFooter" class="drawer-footer" style="display: none;">
+      <!-- Promo Code Applicator -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+        <input type="text" id="promoCodeInput" placeholder="VIP Privé Code (e.g. NEXORA10)" style="flex:1; background:#181818; border:1px solid var(--border-light); padding:0.6rem 0.8rem; font-size:0.75rem; border-radius:var(--radius-sm); text-transform:uppercase;">
+        <button id="btnApplyPromo" style="background:#222; border:1px solid var(--border-gold); padding:0.6rem 1rem; font-size:0.72rem; text-transform:uppercase; color:var(--accent-gold); border-radius:var(--radius-sm);">Apply</button>
+      </div>
+
+      <div class="drawer-subtotal">
+        <span>Estimated Total</span>
+        <span id="cartSubtotal">$0</span>
+      </div>
+
+      <button id="btnOpenCheckout" class="btn-luxury-primary btn-drawer-checkout">
+        Proceed to Private Checkout <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Private Wishlist Slide-over Drawer -->
+  <aside id="wishlistDrawer" class="drawer-panel">
+    <div class="drawer-header">
+      <h3 class="drawer-title"><i class="far fa-heart" style="color: var(--accent-gold); margin-right: 8px;"></i> Private Wishlist</h3>
+      <button id="closeWishlistBtn" class="drawer-close-btn"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div id="wishlistDrawerItems" class="drawer-body">
+      <!-- Rendered dynamically -->
+    </div>
+  </aside>
+
+  <!-- Product Quick View Modal -->
+  <div id="quickViewModal" class="modal-backdrop">
+    <div class="modal-window">
+      <button id="closeQuickViewBtn" class="modal-close-btn"><i class="fas fa-times"></i></button>
+
+      <div class="modal-product-layout">
+        <!-- Gallery -->
+        <div class="modal-gallery">
+          <img id="qvMainImg" src="" class="modal-main-img" alt="Product View">
+          <div id="qvThumbs" class="modal-thumbs"></div>
+        </div>
+
+        <!-- Details -->
+        <div class="modal-product-info">
+          <div>
+            <span id="qvCategory" class="product-category"></span>
+            <h2 id="qvTitle" class="modal-product-name"></h2>
+            <div id="qvPrice" class="modal-product-price"></div>
+          </div>
+
+          <p id="qvDescription" class="modal-description"></p>
+
+          <div class="modal-spec-row">
+            <strong>Craftsmanship & Composition:</strong> <span id="qvMaterial"></span>
+          </div>
+
+          <!-- Size Selector -->
+          <div>
+            <span class="selector-label">Select Tailored Size:</span>
+            <div id="qvSizes" class="size-options"></div>
+          </div>
+
+          <!-- Color Swatches -->
+          <div>
+            <span class="selector-label">Available Atelier Hue:</span>
+            <div id="qvColors" class="size-options"></div>
+          </div>
+
+          <div style="font-size: 0.75rem; color: var(--accent-gold); margin-top: 0.5rem;">
+            <i class="fas fa-certificate" style="margin-right: 4px;"></i> <span id="qvStock"></span>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button class="btn-luxury-primary" onclick="addQuickViewToCart()" style="flex: 1; justify-content: center;">
+              Add Piece to Bag
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simulated Checkout Modal -->
+  <div id="checkoutModal" class="modal-backdrop">
+    <div class="modal-window checkout-modal-window">
+      <button id="closeCheckoutBtn" class="modal-close-btn"><i class="fas fa-times"></i></button>
+
+      <div class="checkout-header">
+        <span class="section-subtitle">Secure Luxury Acquisition</span>
+        <h3 class="section-title" style="font-size: 2rem; margin-top: 0.3rem;">Concierge Checkout</h3>
+      </div>
+
+      <form id="checkoutForm" class="checkout-form">
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="custName" class="form-input" placeholder="Lady / Lord / Mr / Ms" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="custEmail" class="form-input" placeholder="concierge@client.com" required>
+          </div>
+        </div>
+
+        <div class="form-group-row">
+          <div class="form-group">
+            <label class="form-label">Contact Phone</label>
+            <input type="tel" id="custPhone" class="form-input" placeholder="+1 (555) 019-2831" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Destination City</label>
+            <input type="text" id="custCity" class="form-input" placeholder="Paris, New York, London" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Delivery Residence Address</label>
+          <input type="text" id="custAddress" class="form-input" placeholder="Apartment / Suite, Street Address" required>
+        </div>
+
+        <div class="checkout-summary-box">
+          <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.4rem;">
+            <span>Selected Garments:</span>
+            <span id="checkoutItemsCount">0 pieces</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.4rem;">
+            <span>White-Glove Courier:</span>
+            <span style="color:var(--accent-gold);">Complimentary</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:1.1rem; font-weight:700; color:var(--text-primary); border-top:1px solid var(--border-light); padding-top:0.6rem; margin-top:0.6rem;">
+            <span>Final Total:</span>
+            <span id="checkoutTotalAmount" style="color:var(--accent-gold-light);">$0</span>
+          </div>
+        </div>
+
+        <button type="submit" id="btnSubmitOrder" class="btn-luxury-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+          Authorize Luxury Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SECRET ADMIN PORTAL (HIDDEN ON HOME LINE / PASSCODE PROTECTED)
+       ========================================================================== -->
+
+  <!-- Secret Admin Authentication Modal -->
+  <div id="adminAuthModal" class="modal-backdrop">
+    <div class="admin-auth-window">
+      <button class="modal-close-btn" onclick="closeAdminAuthModal()"><i class="fas fa-times"></i></button>
+      
+      <div class="admin-lock-icon"><i class="fas fa-fingerprint"></i></div>
+      <h3 class="admin-auth-title">Nexora Maison</h3>
+      <p class="admin-auth-subtitle">Confidential Atelier Management Portal</p>
+
+      <form id="adminAuthForm">
+        <input type="password" id="adminPasswordInput" class="admin-password-input" placeholder="••••••••" required autocomplete="off">
+        <div id="adminAuthError" style="display:none; color: var(--danger); font-size: 0.75rem; margin-bottom: 1rem;"></div>
+        
+        <button type="submit" class="btn-luxury-primary" style="width: 100%; justify-content: center;">
+          Unlock Atelier Portal
+        </button>
+      </form>
+      <p style="font-size: 0.68rem; color: var(--text-muted); margin-top: 1.5rem;">
+        Default Atelier Passcode: <span style="color: var(--accent-gold); font-family: monospace;">nexora2026</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Secret Admin Dashboard Modal -->
+  <div id="adminDashboardModal" class="modal-backdrop">
+    <div class="modal-window admin-dashboard-window">
+      <button class="modal-close-btn" onclick="closeAdminDashboard()"><i class="fas fa-times"></i></button>
+
+      <!-- Admin Top Bar -->
+      <div class="admin-nav-bar">
+        <div class="admin-brand-header">
+          <h2>NEXORA ATELIER SUITE</h2>
+          <span>Inventory, Orders & Supabase Live Synchronizer</span>
+        </div>
+
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <span class="admin-status-indicator"><i class="fas fa-satellite-dish"></i> Supabase Live</span>
+          <button id="btnAdminSyncSupabase" class="admin-tab-btn" style="background: rgba(212,175,55,0.15); border-color: var(--accent-gold); color: var(--accent-gold-light);">
+            <i class="fas fa-cloud-upload-alt"></i> Sync All to Supabase
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-tab="products"><i class="fas fa-tshirt"></i> Products Inventory</button>
+        <button class="admin-tab-btn" data-tab="add-product"><i class="fas fa-plus-circle"></i> Add / Edit Garment</button>
+        <button class="admin-tab-btn" data-tab="database"><i class="fas fa-database"></i> Supabase Status & Fix</button>
+        <button class="admin-tab-btn" data-tab="orders"><i class="fas fa-receipt"></i> Client Orders</button>
+      </div>
+
+      <!-- Metrics Grid -->
+      <div class="admin-metrics-grid">
+        <div class="metric-card">
+          <span class="metric-title">Active Silhouettes</span>
+          <div id="metricTotalProducts" class="metric-value">0</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Pieces In Stock</span>
+          <div id="metricTotalStock" class="metric-value">0</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Inventory Valuation</span>
+          <div id="metricInventoryValue" class="metric-value">$0</div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Recorded Orders</span>
+          <div id="metricTotalOrders" class="metric-value">0</div>
+        </div>
+      </div>
+
+      <!-- Tab 1: Products Inventory List -->
+      <div id="admin-tab-products" class="admin-tab-pane">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+          <h4 style="font-family: var(--font-display); font-size: 1.1rem;">Garment Inventory</h4>
+          <div style="display: flex; gap: 0.8rem;">
+            <button class="btn-luxury-outline" onclick="clearAllProductsInAdmin()" style="padding: 0.5rem 1rem; font-size: 0.72rem; border-color: rgba(224,82,82,0.4); color: var(--danger);">
+              <i class="fas fa-trash"></i> Clear All Products
+            </button>
+            <button class="btn-luxury-primary" onclick="document.querySelector('[data-tab=\'add-product\']').click()" style="padding: 0.5rem 1.2rem; font-size: 0.72rem;">
+              <i class="fas fa-plus"></i> Add Garment
+            </button>
+          </div>
+        </div>
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Piece</th>
+                <th>Name & SKU</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 2: Add / Edit Product Form -->
+      <div id="admin-tab-add-product" class="admin-tab-pane" style="display: none;">
+        <h4 id="adminFormTitle" style="font-family: var(--font-display); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 1rem;">
+          Add New Luxury Garment
+        </h4>
+
+        <form id="adminProductForm" class="admin-form-grid">
+          <input type="hidden" id="prodId">
+
+          <div class="form-group">
+            <label class="form-label">Garment Name</label>
+            <input type="text" id="prodName" class="form-input" placeholder="e.g. Aurelia Draped Silk Gown" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="prodCategory" class="form-input" style="background:#161616;">
+              <option value="Silk & Eveningwear">Silk & Eveningwear</option>
+              <option value="Outerwear">Outerwear</option>
+              <option value="Bespoke Tailoring">Bespoke Tailoring</option>
+              <option value="Haute Couture">Haute Couture</option>
+              <option value="Ready-to-Wear">Ready-to-Wear</option>
+              <option value="Accessories">Accessories</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Price ($ USD)</label>
+            <input type="number" id="prodPrice" class="form-input" placeholder="1850" required min="10">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Original / Retail Price ($ USD - Optional)</label>
+            <input type="number" id="prodOrigPrice" class="form-input" placeholder="2200">
+          </div>
+
+          <div class="form-group form-full-width">
+            <label class="form-label">High-Resolution Image URL</label>
+            <input type="url" id="prodImage" class="form-input" placeholder="https://images.unsplash.com/..." required>
+          </div>
+
+          <div class="form-group form-full-width">
+            <label class="form-label">Fabric Composition & Savoir-Faire</label>
+            <input type="text" id="prodMaterial" class="form-input" placeholder="e.g. 100% Organic Mulberry Silk Charmeuse" required>
+          </div>
+
+          <div class="form-group form-full-width">
+            <label class="form-label">Atelier Editorial Description</label>
+            <textarea id="prodDescription" class="form-input" rows="3" placeholder="Describe the tailoring, drape, and silhouette..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Available Sizes (Comma separated)</label>
+            <input type="text" id="prodSizes" class="form-input" value="XS, S, M, L, XL">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Available Colors (Comma separated)</label>
+            <input type="text" id="prodColors" class="form-input" value="Obsidian Black, Champagne Gold, Ivory">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Stock Quantity Available</label>
+            <input type="number" id="prodStock" class="form-input" value="10" min="0">
+          </div>
+
+          <div class="form-group" style="display: flex; align-items: center; gap: 0.6rem; padding-top: 1.5rem;">
+            <input type="checkbox" id="prodFeatured" style="width: 18px; height: 18px; accent-color: var(--accent-gold);">
+            <label for="prodFeatured" class="form-label" style="margin: 0; cursor: pointer;">Show in Atelier Featured Capsule</label>
+          </div>
+
+          <div class="form-full-width" style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button type="submit" id="btnSaveProduct" class="btn-luxury-primary">Publish to Collection</button>
+            <button type="button" id="btnResetProductForm" class="btn-luxury-outline">Clear Form</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tab: Database & Supabase Diagnostics -->
+      <div id="admin-tab-database" class="admin-tab-pane" style="display: none;">
+        <div style="background: #141414; border: 1px solid var(--border-gold); padding: 2rem; border-radius: var(--radius-md); margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 style="font-family: var(--font-display); font-size: 1.3rem; color: var(--accent-gold-light); margin-bottom: 0.3rem;">
+                <i class="fas fa-database"></i> Supabase Live Diagnostic
+              </h3>
+              <p style="font-size: 0.8rem; color: var(--text-secondary);">
+                Test live connection to Supabase project (<code>https://orsoeipfqoaohghegvf.supabase.co</code>).
+              </p>
+            </div>
+            <button id="btnRunSupabaseDiag" class="btn-luxury-primary" onclick="runSupabaseDiagnostic()">
+              <i class="fas fa-vial"></i> Test & Refresh Supabase
+            </button>
+          </div>
+
+          <div id="supabaseDiagOutput" style="margin-top: 1rem;"></div>
+
+          <div style="margin-top: 2rem; border-top: 1px solid var(--border-light); padding-top: 1.5rem;">
+            <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--text-primary); margin-bottom: 0.6rem;">
+              <i class="fas fa-key" style="color: var(--accent-gold);"></i> 1-Click Fix for Supabase Row Level Security (RLS)
+            </h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+              If you added products in your Supabase table but they don't show up on the website, Supabase's Row Level Security is blocking public read access. Run this quick 1-line command in your <strong>Supabase Dashboard &gt; SQL Editor</strong>:
+            </p>
+            <pre style="background: #0a0a0a; border: 1px solid var(--border-gold); padding: 1.2rem; border-radius: var(--radius-sm); color: var(--accent-gold-light); font-size: 0.8rem; overflow-x: auto; line-height: 1.6; user-select: all;">-- Step 1: Ensure products table exists
+CREATE TABLE IF NOT EXISTS products (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    category TEXT DEFAULT 'Ready-to-Wear',
+    price NUMERIC DEFAULT 0,
+    original_price NUMERIC,
+    image TEXT,
+    description TEXT,
+    material TEXT,
+    stock_quantity INT DEFAULT 10,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+-- Step 2: Grant public read/write access (Solves missing items issue immediately)
+ALTER TABLE products DISABLE ROW LEVEL SECURITY;
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Orders List -->
+      <div id="admin-tab-orders" class="admin-tab-pane" style="display: none;">
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Client</th>
+                <th>Garments</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrdersTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Feedback System -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/products-data.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
